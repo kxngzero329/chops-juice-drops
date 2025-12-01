@@ -77,8 +77,8 @@ const Header = ({ onCartOpen, cartCount }) => {
     return location.pathname === path;
   };
 
-  // Determine header class based on scroll and route
-  const headerClass = scrolled || location.pathname !== '/' ? 'scrolled' : '';
+  // Determine header class based on scroll
+  const headerClass = scrolled ? 'scrolled' : '';
 
   return (
     <>

@@ -14,16 +14,27 @@ const Shop = ({ onAddToCart }) => {
     const [productsPerPage] = useState(10);
 
     // Add this useEffect to ensure header gets scrolled class on Shop page
-    useEffect(() => {
-        // Force header to have scrolled class on Shop page
-        const header = document.querySelector('header');
-        if (header && !header.classList.contains('scrolled')) {
-            header.classList.add('scrolled');
-        }
-
-        // Also trigger scroll event to ensure proper styling
-        window.dispatchEvent(new Event('scroll'));
-    }, []);
+// In Shop.jsx, modify the useEffect
+useEffect(() => {
+  // Force header to always have scrolled class on Shop page
+  const header = document.querySelector('header');
+  if (header) {
+    header.classList.add('scrolled');
+    
+    // Prevent scroll event from removing the scrolled class
+    const handleScroll = () => {
+      if (!header.classList.contains('scrolled')) {
+        header.classList.add('scrolled');
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }
+}, []);
 
     // Product categories based on your images
     const categories = [
